@@ -20,7 +20,7 @@ export async function processWeatherDataCurrentDay(data) {
 
   const condition = awaitedData.current.condition.text;
   const location = awaitedData.location.name;
-  const dateHour = awaitedData.location.localtime;
+  const dateTime = awaitedData.location.localtime;
   const tempC = awaitedData.current.temp_c;
   const feelsLikeC = awaitedData.current.feelslike_c;
   const humidity = awaitedData.current.humidity;
@@ -32,7 +32,7 @@ export async function processWeatherDataCurrentDay(data) {
   return [
     condition,
     location,
-    dateHour,
+    dateTime,
     tempC,
     feelsLikeC,
     humidity,
@@ -47,15 +47,17 @@ export function processWeatherForecastSpecificDate(data, day) {
   const maxTempC = data.forecast.forecastday[day].day.maxtemp_c;
   const minTempC = data.forecast.forecastday[day].day.mintemp_c;
   const dayCondition = data.forecast.forecastday[day].day.condition.text;
+  const dateTime = data.location.localtime;
 
-  return [maxTempC, minTempC, dayCondition];
+  return [maxTempC, minTempC, dayCondition, dateTime];
 }
 
-function processWeatherForecastHourly(data, hour) {
-  const hourTempC = data.forecast.forecastday[0].hour[hour];
+export function processWeatherForecastHourly(data, hour) {
+  const hourTempC = data.forecast.forecastday[0].hour[hour].temp_c;
   const hourCondition = data.forecast.forecastday[0].hour[hour].condition.text;
+  const dateTime = data.location.localtime;
 
-  return [hourTempC, hourCondition];
+  return [hourTempC, hourCondition, dateTime];
 }
 
 export async function getWeatherIcon(condition, isDay) {

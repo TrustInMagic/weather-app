@@ -60,21 +60,25 @@ body {
   height: 160px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
 }
 
 .forecast-buttons {
   display: flex;
   gap: 20px;
-  margin-bottom: 10px;
 }
 
 .forecast-buttons > div {
   cursor: pointer;
+  height: 30px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 
 .active-button {
-  border: solid 2px var(--font-white)
+  border: solid 2px var(--font-white);
 }
 
 /* weather cards */
@@ -91,7 +95,7 @@ body {
 .weather-card {
   display: flex;
   flex-direction: column;
-  height: 100%
+  height: 100%;
 }
 
 .weather-card .week-day {
@@ -118,4 +122,45 @@ body {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+/* forecast nav */
+
+.arrow {
+  border: solid var(--font-white);
+  border-width: 0 3px 3px 0;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.arrow-left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.arrow-right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.forecast-nav-container {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.forecast-nav {
+  display: flex;
+  width: 80px;
+  align-items: center;
+  gap: 8px;
+  display: none;
+}
+
+.dot {
+  border: 1px solid var(--font-dirty-white);
+  border-radius: 50%;
+  height: 6px;
+  width: 6px;
+  cursor: pointer;
 }

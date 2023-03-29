@@ -21,22 +21,24 @@ export async function populateDailyForecast(location = 'Bali') {
     let maxTempC;
     let minTempC;
     let dayCondition;
+    let dateTime;
 
-    [maxTempC, minTempC, dayCondition] = processWeatherForecastSpecificDate(
+    [maxTempC, minTempC, dayCondition, dateTime] = processWeatherForecastSpecificDate(
       response,
       i
     );
 
     const iconSrc = await getWeatherIcon(dayCondition, 1);
 
-    const today = moment();
+    const localTime = moment(dateTime, 'YYYY-MM-DD HH:mm');
     const nextDaysOfWeek = [];
 
     for (let i = 0; i < 7; i++) {
-      const day = moment(today).add(i + 1, 'days').format('dddd')
-      nextDaysOfWeek.push(day)
+      const day = moment(localTime)
+        .add(i + 1, 'days')
+        .format('dddd');
+      nextDaysOfWeek.push(day);
     }
-
 
     const weatherCard = elementFromHtml(`
     <div class="weather-card">
@@ -60,11 +62,9 @@ export async function populateDailyForecast(location = 'Bali') {
 
     maxTempEl.textContent = maxTempC;
     minTempEl.textContent = minTempC;
-    weekDay.textContent = nextDaysOfWeek[i]
+    weekDay.textContent = nextDaysOfWeek[i];
     icon.src = iconSrc;
 
     forecastDisplay.appendChild(weatherCard);
-
-    
   }
 }
