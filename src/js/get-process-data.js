@@ -52,12 +52,15 @@ export function processWeatherForecastSpecificDate(data, day) {
   return [maxTempC, minTempC, dayCondition, dateTime];
 }
 
-export function processWeatherForecastHourly(data, hour) {
-  const hourTempC = data.forecast.forecastday[0].hour[hour].temp_c;
-  const hourCondition = data.forecast.forecastday[0].hour[hour].condition.text;
+export function processWeatherForecastHourly(data, day, hour) {
+  const hourTempC = data.forecast.forecastday[day].hour[hour].temp_c;
+  const hourCondition = data.forecast.forecastday[day].hour[hour].condition.text;
   const dateTime = data.location.localtime;
+  const isDay = data.forecast.forecastday[day].hour[hour].is_day;
 
-  return [hourTempC, hourCondition, dateTime];
+  // console.log(data)
+
+  return [hourTempC, hourCondition, isDay, dateTime];
 }
 
 export async function getWeatherIcon(condition, isDay) {

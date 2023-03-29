@@ -17,27 +17,54 @@ export async function buildDisplaySectionData(location = 'Bali') {
 
   forecastDisplay.innerHTML = '';
 
-  const dateTime = processWeatherForecastHourly(response, 0)[2];
+  const dateTime = processWeatherForecastHourly(response, 0, 0)[3];
   const localTime = moment(dateTime, 'YYYY-MM-DD HH:mm');
+  const hour = moment(localTime).format('H');
   const nextHours = [];
   const firstSection = [];
   const secondSection = [];
   const thirdSection = [];
+  let hourIncrement = 1
 
-  for (let i = 0; i < 24; i++) {
+  // getting next hours of the day starting now
+  for (let i = +hour + 1; i < 24; i++) {
+    console.log(i)
     const hour = moment(localTime)
-      .add(i + 1, 'hours')
+      .add(hourIncrement, 'hours')
       .format('hh a');
     nextHours.push(hour);
+
+    hourIncrement++
   }
+
+  // if (nextHours.length < 24) {
+  //   const hoursMissing = 24 - nextHours.length;
+  //   console.log(hoursMissing)
+  //   for (let i = 0; i < hoursMissing; i++) {
+  //     const hour = moment(localTime)
+  //       .add(nextHours.length, 'hours')
+  //       .add(i + 1, 'hours')
+  //       .format('hh a');
+  //     nextHours.push(hour)
+  //   }
+  // }
+
+  console.log(nextHours)
 
   for (let i = 0; i < 24; i++) {
     let hourTempC;
     let hourCondition;
+    let isDay;
 
-    [hourTempC, hourCondition] = processWeatherForecastHourly(response, i);
-    const usefulData = [hourTempC, hourCondition];
+    [hourTempC, hourCondition, isDay] = processWeatherForecastHourly(
+      response,
+      0,
+      i
+    );
+    const usefulData = [hourTempC, hourCondition, isDay];
 
+    // constructing the data structures for the three sections
+    // (each containing 8 weather cards to display) corresponding to the next 24 hours
     if (i < 8) {
       firstSection.push(usefulData);
     } else if (i >= 8 && i < 16) {
@@ -45,10 +72,18 @@ export async function buildDisplaySectionData(location = 'Bali') {
     } else if (i >= 16) thirdSection.push(usefulData);
   }
 
-  return [nextHours, firstSection, secondSection, thirdSection];
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      if (j === i) {
+        firstSection[i].push(nextHours[j]);
+      }
+    }
+  }
+
+  return [firstSection, secondSection, thirdSection];
 }
 
-export function populateHourlyForecast() {
+async function createWeatherCard(data) {
   const weatherCard = elementFromHtml(`
     <div class="weather-card">
       <div class="hour"></div>
@@ -61,5 +96,49 @@ export function populateHourlyForecast() {
     </div>
   `);
 
-  console.log(buildDisplaySectionData())
+  const hourEl = weatherCard.querySelector('.hour');
+  const tempEl = weatherCard.querySelector('.max-temp');
+  const icon = weatherCard.querySelector('img');
+  const iconSrc = await getWeatherIcon(data[1], data[2]);
+
+  hourEl.textContent = data[3];
+  tempEl.textContent = data[0];
+  icon.src = iconSrc;
+
+  return weatherCard;
+}
+
+export async function populateHourlyForecast(
+  firstSection,
+  secondSection,
+  thirdSection
+) {
+  const firstSectionDomEl = document.createElement('div');
+  const secondSectionDomEl = document.createElement('div');
+  const thirdSectionDomEl = document.createElement('div');
+  firstSectionDomEl.classList.add('hour-section', 'first-section');
+  secondSectionDomEl.classList.add('hour-section', 'second-section');
+  thirdSectionDomEl.classList.add('hour-section', 'third-section');
+
+  for (let i = 0; i < firstSection.length; i++) {
+    const firstSectionWeatherCard = await createWeatherCard(firstSection[i]);
+    firstSectionDomEl.appendChild(firstSectionWeatherCard);
+  }
+
+  for (let i = 0; i < secondSection.length; i++) {
+    const secondSectionWeatherCard = await createWeatherCard(secondSection[i]);
+    secondSectionDomEl.appendChild(secondSectionWeatherCard);
+  }
+
+  for (let i = 0; i < thirdSection.length; i++) {
+    const thirdSectionWeatherCard = await createWeatherCard(thirdSection[i]);
+    thirdSectionDomEl.appendChild(thirdSectionWeatherCard);
+  }
+
+  const forecastDisplay = document.querySelector('.forecast-display');
+  forecastDisplay.appendChild(firstSectionDomEl);
+  // forecastDisplay.appendChild(secondSectionDomEl);
+  // forecastDisplay.appendChild(thirdSectionDomEl);
+
+  console.log(firstSection);
 }

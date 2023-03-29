@@ -124,6 +124,12 @@ body {
   gap: 3px;
 }
 
+.hour-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 /* forecast nav */
 
 .arrow {
