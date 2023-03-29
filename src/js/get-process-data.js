@@ -42,7 +42,7 @@ export async function processWeatherDataCurrentDay(data) {
   ];
 }
 
-function processWeatherForecastSpecificDate(data, day) {
+export function processWeatherForecastSpecificDate(data, day) {
   // day = 0 is today; day = 1 is tomorrow, etc;
   const maxTempC = data.forecast.forecastday[day].day.maxtemp_c;
   const minTempC = data.forecast.forecastday[day].day.mintemp_c;

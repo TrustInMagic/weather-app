@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../src/style.css" />
-    <link href='https://fonts.googleapis.com/css?family=Nova Flat' rel='stylesheet'>
+    <link
+      href="https://fonts.googleapis.com/css?family=Nova Flat"
+      rel="stylesheet"
+    />
     <script src="./bundle.js" defer></script>
     <title>Storm Shield</title>
   </head>
@@ -18,36 +21,51 @@
           <div class="date"></div>
           <div class="hour"></div>
         </div>
-        <h1><span class="main-temp"></span> <span class="temp-unit">°C</span></h1>
-        <div class="display-temp-unit">Display <span class="reverse-temp-unit">°F</span></div>
-        <img src="" class="condition-icon">
+        <h1>
+          <span class="main-temp"></span> <span class="temp-unit">°C</span>
+        </h1>
+        <div class="display-temp-unit">
+          Display <span class="reverse-temp-unit">°F</span>
+        </div>
+        <img src="" class="condition-icon" />
         <div class="search-box">
-          <input type="text" placeholder="Search Location...">
-          <img class ="magnifying-glass" src="./assets/magnifying-glass.png" alt="">
+          <input type="text" placeholder="Search Location..." />
+          <img
+            class="magnifying-glass"
+            src="./assets/magnifying-glass.png"
+            alt=""
+          />
         </div>
       </div>
       <div class="top-right">
         <div class="right-indicator feels-like">
-          <img src="./assets/temperature-feels-like.svg" class="right-icon">
+          <img src="./assets/temperature-feels-like.svg" class="right-icon" />
           <span>Feels Like</span>
           <span class="right-stat"></span> <span class="temp-unit">°C</span>
         </div>
         <div class="right-indicator humidity">
-          <img src="./assets/humidity.svg" class="right-icon">
+          <img src="./assets/humidity.svg" class="right-icon" />
           <span>Humidity</span>
           <span class="right-stat"></span> <span>%</span>
         </div>
         <div class="right-indicator chance-of-rain">
-          <img src="./assets/chance-of-rain.svg" class="right-icon">
+          <img src="./assets/chance-of-rain.svg" class="right-icon" />
           <span>Chance of Rain</span>
           <span class="right-stat"></span> <span>%</span>
         </div>
         <div class="right-indicator wind-speed">
-          <img src="./assets/wind-speed.svg" class="right-icon">
+          <img src="./assets/wind-speed.svg" class="right-icon" />
           <span>Wind Speed</span>
           <span class="right-stat"></span> <span class="length-unit">km/h</span>
         </div>
       </div>
-    </div>    
+    </div>
+    <div class="bottom-part">
+      <div class="forecast-buttons">
+        <div class="daily-button active-button">Daily</div>
+        <div class="hourly-button">Hourly</div>
+      </div>
+      <div class="forecast-display"></div>
+    </div>
   </body>
 </html>

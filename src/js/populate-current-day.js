@@ -5,27 +5,6 @@ import {
 } from './get-process-data';
 import moment from 'moment';
 
-(function getLocationFromInput() {
-  const locationInput = document.querySelector('.top-left input');
-  const searchIcon = document.querySelector('.top-left .magnifying-glass');
-  let location;
-
-  window.addEventListener('keydown', (e) => {
-    if (locationInput === document.activeElement && e.key === 'Enter') {
-      location = locationInput.value;
-      populateTopLeftSection(location);
-      populateTopRightSection(location);
-      locationInput.value = '';
-    }
-  });
-
-  searchIcon.addEventListener('click', () => {
-    location = locationInput.value;
-    populateTopLeftSection(location);
-    populateTopRightSection(location);
-    locationInput.value = '';
-  });
-})();
 
 export async function populateTopLeftSection(location = 'Bali') {
   const conditionEl = document.querySelector('.condition');
@@ -80,9 +59,6 @@ export async function populateTopRightSection(location = 'Bali') {
   windSpeed = data[2];
   chanceOfRain = data[3];
   
-
-  console.log(await processWeatherDataCurrentDay(response))
-
   feelsLikeEl.textContent = feelsLike;
   humidityEl.textContent = humidity;
   chanceOfRainEl.textContent = chanceOfRain;
