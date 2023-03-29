@@ -15,13 +15,6 @@ export async function getWeatherFromLocation(
   }
 }
 
-async function getWeatherConditions() {
-  const response = await fetch('./assets/weather_conditions.json');
-  const weatherConditions = await response.json();
-
-  return weatherConditions;
-}
-
 export async function processWeatherDataCurrentDay(data) {
   const awaitedData = await data;
 
@@ -65,13 +58,22 @@ function processWeatherForecastHourly(data, hour) {
   return [hourTempC, hourCondition];
 }
 
-async function getWeatherIcon(data, condition, isDay) {
-  const awaitedData = await data;
+export async function getWeatherIcon(condition, isDay) {
+  async function getWeatherConditionsAndIcons() {
+    const response = await fetch('./assets/weather_conditions.json');
+    const weatherConditions = await response.json();
+
+    return weatherConditions;
+  }
+
+  const awaitedData = await getWeatherConditionsAndIcons();
   let iconCode;
   let iconSrc;
 
   for (let i = 0; i < awaitedData.length; i++) {
-    if (awaitedData[i].day === condition) {
+    if (condition === 'Clear' || condition === 'Sunny') {
+      iconCode = 113
+    } else if (awaitedData[i].day === condition) {
       iconCode = awaitedData[i].icon;
     }
   }
@@ -80,8 +82,5 @@ async function getWeatherIcon(data, condition, isDay) {
     iconSrc = `./assets/weather/64x64/day/${iconCode}.png`;
   } else iconSrc = `./assets/weather/64x64/night/${iconCode}.png`;
 
-  const icon = new Image();
-  icon.src = iconSrc;
-
-  return icon;
+  return iconSrc;
 }

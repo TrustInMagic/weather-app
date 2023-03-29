@@ -33,6 +33,7 @@ body {
 
 .magnifying-glass {
   height: 20px;
+  cursor: pointer;
 }
 
 /* top-right */

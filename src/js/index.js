@@ -1,3 +1,7 @@
-import { populateLeftSection } from './populate-current-day';
+import {
+  populateTopLeftSection,
+  populateTopRightSection,
+} from './populate-current-day';
 
-populateLeftSection();
+populateTopLeftSection();
+populateTopRightSection();
