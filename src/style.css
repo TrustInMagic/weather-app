@@ -175,3 +175,7 @@ body {
   width: 6px;
   cursor: pointer;
 }
+
+.first-dot {
+  background-color: var(--font-white);
+}

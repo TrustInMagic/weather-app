@@ -40,6 +40,7 @@ export async function populateHourlyForecast(
   const secondSectionDomEl = document.createElement('div');
   const thirdSectionDomEl = document.createElement('div');
   firstSectionDomEl.classList.add('hour-section', 'first-section');
+  firstSectionDomEl.setAttribute('data-visible', 'on')
   secondSectionDomEl.classList.add('hour-section', 'second-section');
   thirdSectionDomEl.classList.add('hour-section', 'third-section');
 
