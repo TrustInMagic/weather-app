@@ -3,10 +3,9 @@ import {
   populateTopRightSection,
 } from './populate-current-day';
 import { populateDailyForecast } from './populate-daily-forecast';
-import {
-  populateHourlyForecast,
-  buildDisplaySectionData,
-} from './populate-hourly-forecast';
+import { buildHourlyData } from './build-hourly-data';
+import { populateHourlyForecast } from './populate-hourly-forecast';
+import { displayNextHourlySection } from './hourly-nav-functionality';
 
 let location;
 populateTopLeftSection();
@@ -51,6 +50,9 @@ hourlyButton.addEventListener('click', async () => {
   hourlyButton.classList.add('active-button');
   dailyButton.classList.remove('active-button');
   forecastNav.style.cssText = 'display: flex';
-  const hourlyWeatherData = await buildDisplaySectionData(location)
+  const hourlyWeatherData = await buildHourlyData(location);
   populateHourlyForecast(...hourlyWeatherData);
+
+  displayNextHourlySection()
 });
+

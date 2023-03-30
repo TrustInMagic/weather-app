@@ -57,10 +57,9 @@ export function processWeatherForecastHourly(data, day, hour) {
   const hourCondition = data.forecast.forecastday[day].hour[hour].condition.text;
   const dateTime = data.location.localtime;
   const isDay = data.forecast.forecastday[day].hour[hour].is_day;
+  const currentHour = data.forecast.forecastday[day].hour[hour].time;
 
-  // console.log(data)
-
-  return [hourTempC, hourCondition, isDay, dateTime];
+  return [hourTempC, hourCondition, isDay, dateTime, currentHour];
 }
 
 export async function getWeatherIcon(condition, isDay) {

@@ -128,6 +128,11 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  display: none;
+}
+
+.first-section {
+  display: flex;
 }
 
 /* forecast nav */

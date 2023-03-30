@@ -1,86 +1,9 @@
-import {
-  getWeatherFromLocation,
-  processWeatherForecastHourly,
-  getWeatherIcon,
-} from './get-process-data';
-import moment from 'moment';
+import { getWeatherIcon } from './get-process-data';
 
 function elementFromHtml(html) {
   const container = document.createElement('div');
   container.innerHTML = html.trim();
   return container;
-}
-
-export async function buildDisplaySectionData(location = 'Bali') {
-  const response = await getWeatherFromLocation(location);
-  const forecastDisplay = document.querySelector('.forecast-display');
-
-  forecastDisplay.innerHTML = '';
-
-  const dateTime = processWeatherForecastHourly(response, 0, 0)[3];
-  const localTime = moment(dateTime, 'YYYY-MM-DD HH:mm');
-  const hour = moment(localTime).format('H');
-  const nextHours = [];
-  const firstSection = [];
-  const secondSection = [];
-  const thirdSection = [];
-  let hourIncrement = 1
-
-  // getting next hours of the day starting now
-  for (let i = +hour + 1; i < 24; i++) {
-    console.log(i)
-    const hour = moment(localTime)
-      .add(hourIncrement, 'hours')
-      .format('hh a');
-    nextHours.push(hour);
-
-    hourIncrement++
-  }
-
-  // if (nextHours.length < 24) {
-  //   const hoursMissing = 24 - nextHours.length;
-  //   console.log(hoursMissing)
-  //   for (let i = 0; i < hoursMissing; i++) {
-  //     const hour = moment(localTime)
-  //       .add(nextHours.length, 'hours')
-  //       .add(i + 1, 'hours')
-  //       .format('hh a');
-  //     nextHours.push(hour)
-  //   }
-  // }
-
-  console.log(nextHours)
-
-  for (let i = 0; i < 24; i++) {
-    let hourTempC;
-    let hourCondition;
-    let isDay;
-
-    [hourTempC, hourCondition, isDay] = processWeatherForecastHourly(
-      response,
-      0,
-      i
-    );
-    const usefulData = [hourTempC, hourCondition, isDay];
-
-    // constructing the data structures for the three sections
-    // (each containing 8 weather cards to display) corresponding to the next 24 hours
-    if (i < 8) {
-      firstSection.push(usefulData);
-    } else if (i >= 8 && i < 16) {
-      secondSection.push(usefulData);
-    } else if (i >= 16) thirdSection.push(usefulData);
-  }
-
-  for (let i = 0; i < 8; i++) {
-    for (let j = 0; j < 8; j++) {
-      if (j === i) {
-        firstSection[i].push(nextHours[j]);
-      }
-    }
-  }
-
-  return [firstSection, secondSection, thirdSection];
 }
 
 async function createWeatherCard(data) {
@@ -136,9 +59,8 @@ export async function populateHourlyForecast(
   }
 
   const forecastDisplay = document.querySelector('.forecast-display');
+  forecastDisplay.innerHTML = ''
   forecastDisplay.appendChild(firstSectionDomEl);
-  // forecastDisplay.appendChild(secondSectionDomEl);
-  // forecastDisplay.appendChild(thirdSectionDomEl);
-
-  console.log(firstSection);
+  forecastDisplay.appendChild(secondSectionDomEl);
+  forecastDisplay.appendChild(thirdSectionDomEl);
 }
