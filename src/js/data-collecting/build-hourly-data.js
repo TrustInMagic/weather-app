@@ -44,37 +44,27 @@ export async function buildHourlyData(location = 'Bucharest') {
     }
   }
 
+  const workingData = {
+    firstSection,
+    secondSection,
+    thirdSection,
+    response,
+  };
   const currentDayHours = nextHours.slice(0, remainingHoursOfCurrentDay);
   const nextDayHours = nextHours.slice(remainingHoursOfCurrentDay, 24);
 
-  constructHourlySectionData(
-    currentDayHours,
-    0,
-    firstSection,
-    secondSection,
-    thirdSection,
-    response
-  );
-  constructHourlySectionData(
-    nextDayHours,
-    1,
-    firstSection,
-    secondSection,
-    thirdSection,
-    response
-  );
+  constructHourlySectionData(currentDayHours, 0, workingData);
+  constructHourlySectionData(nextDayHours, 1, workingData);
 
   return [firstSection, secondSection, thirdSection];
 }
 
-export function constructHourlySectionData(
-  hours,
-  day,
-  firstSection,
-  secondSection,
-  thirdSection,
-  response
-) {
+export function constructHourlySectionData(hours, day, workingData) {
+  const response = workingData.response;
+  const firstSection = workingData.firstSection;
+  const secondSection = workingData.secondSection;
+  const thirdSection = workingData.thirdSection;
+
   for (let i = 0; i < hours.length; i++) {
     let hourTempC;
     let hourCondition;
