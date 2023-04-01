@@ -2,9 +2,8 @@ import {
   getWeatherFromLocation,
   processWeatherDataCurrentDay,
   getWeatherIcon,
-} from './get-process-data';
+} from '../data-collecting/get-process-data';
 import moment from 'moment';
-
 
 export async function populateTopLeftSection(location = 'Bucharest') {
   const conditionEl = document.querySelector('.condition');
@@ -58,7 +57,7 @@ export async function populateTopRightSection(location = 'Bucharest') {
   humidity = data[1];
   windSpeed = data[2];
   chanceOfRain = data[3];
-  
+
   feelsLikeEl.textContent = feelsLike;
   humidityEl.textContent = humidity;
   chanceOfRainEl.textContent = chanceOfRain;

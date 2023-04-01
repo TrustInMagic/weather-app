@@ -1,4 +1,4 @@
-import { getWeatherIcon } from './get-process-data';
+import { getWeatherIcon } from '../data-collecting/get-process-data';
 import moment from 'moment';
 
 function elementFromHtml(html) {
@@ -29,8 +29,6 @@ async function createWeatherCard(data) {
   const time = momentDate.format('h:mm a');
   const temp = data[0];
 
-
-
   hourEl.textContent = time;
   tempEl.textContent = temp;
   icon.src = iconSrc;
@@ -47,7 +45,7 @@ export async function populateHourlyForecast(
   const secondSectionDomEl = document.createElement('div');
   const thirdSectionDomEl = document.createElement('div');
   firstSectionDomEl.classList.add('hour-section', 'first-section');
-  firstSectionDomEl.setAttribute('data-visible', 'on')
+  firstSectionDomEl.setAttribute('data-visible', 'on');
   secondSectionDomEl.classList.add('hour-section', 'second-section');
   thirdSectionDomEl.classList.add('hour-section', 'third-section');
 
@@ -67,7 +65,7 @@ export async function populateHourlyForecast(
   }
 
   const forecastDisplay = document.querySelector('.forecast-display');
-  forecastDisplay.innerHTML = ''
+  forecastDisplay.innerHTML = '';
   forecastDisplay.appendChild(firstSectionDomEl);
   forecastDisplay.appendChild(secondSectionDomEl);
   forecastDisplay.appendChild(thirdSectionDomEl);

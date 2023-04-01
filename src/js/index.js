@@ -1,10 +1,10 @@
 import {
   populateTopLeftSection,
   populateTopRightSection,
-} from './populate-current-day';
-import { populateDailyForecast } from './populate-daily-forecast';
-import { buildHourlyData } from './build-hourly-data';
-import { populateHourlyForecast } from './populate-hourly-forecast';
+} from './dom-manipulation/populate-current-day';
+import { populateDailyForecast } from './dom-manipulation/populate-daily-forecast';
+import { buildHourlyData } from './data-collecting/build-hourly-data';
+import { populateHourlyForecast } from './dom-manipulation/populate-hourly-forecast';
 import {
   displayNextHourlySection,
   displayPreviousHourlySection,

@@ -2,7 +2,7 @@ import {
   getWeatherFromLocation,
   processWeatherForecastSpecificDate,
   getWeatherIcon,
-} from './get-process-data';
+} from '../data-collecting/get-process-data';
 import moment from 'moment';
 
 function elementFromHtml(html) {
@@ -23,10 +23,8 @@ export async function populateDailyForecast(location = 'Bucharest') {
     let dayCondition;
     let dateTime;
 
-    [maxTempC, minTempC, dayCondition, dateTime] = processWeatherForecastSpecificDate(
-      response,
-      i
-    );
+    [maxTempC, minTempC, dayCondition, dateTime] =
+      processWeatherForecastSpecificDate(response, i);
 
     const iconSrc = await getWeatherIcon(dayCondition, 1);
 

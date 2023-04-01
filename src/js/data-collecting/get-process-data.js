@@ -1,4 +1,4 @@
-import { handleWrongLocation } from "./handle-wrong-location";
+import { handleWrongLocation } from '../handle-wrong-location';
 
 export async function getWeatherFromLocation(
   location,
@@ -16,11 +16,11 @@ export async function getWeatherFromLocation(
 
     if (weatherData.error || !weatherData.location || !response.ok) {
       handleWrongLocation();
-      throw new Error()
+      throw new Error();
     }
   } catch (error) {
     console.log(`OOPS ${error}`);
-     throw error;
+    throw error;
   }
 
   return weatherData;
@@ -33,6 +33,7 @@ export async function processWeatherDataCurrentDay(data) {
   const location = awaitedData.location.name;
   const dateTime = awaitedData.location.localtime;
   const tempC = awaitedData.current.temp_c;
+  const tempCRounded = Math.round(tempC);
   const feelsLikeC = awaitedData.current.feelslike_c;
   const humidity = awaitedData.current.humidity;
   const windSpeed = awaitedData.current.wind_kph;
@@ -44,7 +45,7 @@ export async function processWeatherDataCurrentDay(data) {
     condition,
     location,
     dateTime,
-    tempC,
+    tempCRounded,
     feelsLikeC,
     humidity,
     windSpeed,
@@ -56,22 +57,25 @@ export async function processWeatherDataCurrentDay(data) {
 export function processWeatherForecastSpecificDate(data, day) {
   // day = 0 is today; day = 1 is tomorrow, etc;
   const maxTempC = data.forecast.forecastday[day].day.maxtemp_c;
+  const maxTempCRounded = Math.round(maxTempC);
   const minTempC = data.forecast.forecastday[day].day.mintemp_c;
+  const minTempCRounded = Math.round(minTempC);
   const dayCondition = data.forecast.forecastday[day].day.condition.text;
   const dateTime = data.location.localtime;
 
-  return [maxTempC, minTempC, dayCondition, dateTime];
+  return [maxTempCRounded, minTempCRounded, dayCondition, dateTime];
 }
 
 export function processWeatherForecastHourly(data, day, hour) {
   const hourTempC = data.forecast.forecastday[day].hour[hour].temp_c;
+  const hourTempCRounded = Math.round(hourTempC);
   const hourCondition =
     data.forecast.forecastday[day].hour[hour].condition.text;
   const dateTime = data.location.localtime;
   const isDay = data.forecast.forecastday[day].hour[hour].is_day;
   const currentHour = data.forecast.forecastday[day].hour[hour].time;
 
-  return [hourTempC, hourCondition, isDay, dateTime, currentHour];
+  return [hourTempCRounded, hourCondition, isDay, dateTime, currentHour];
 }
 
 export async function getWeatherIcon(condition, isDay) {
