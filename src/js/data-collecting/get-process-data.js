@@ -9,7 +9,7 @@ export async function getWeatherFromLocation(
 
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/${type}.json?key=b799deac1aed4f0b980145810232703&q=${location}&days=${days}`,
+      `https://api.weatherapi.com/v1/${type}.json?key=b799deac1aed4f0b980145810232703&q=${location}&days=${days}`,
       { mode: 'cors' }
     );
     weatherData = await response.json();
