@@ -11,7 +11,7 @@ import {
   displaySection,
 } from './hourly-nav-functionality';
 import { clearErrorMsj } from './handle-wrong-location';
-
+import '../js'
 
 let location;
 populateTopLeftSection();

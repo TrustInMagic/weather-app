@@ -32,6 +32,11 @@ module.exports = {
           from: 'src/assets',
           to: 'assets',
         },
+        {
+          from: path.resolve(__dirname, 'src/style.css'),
+          to: path.resolve(__dirname, 'dist/style.css'),
+          noErrorOnMissing: true,
+        },
       ],
     }),
   ],
