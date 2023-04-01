@@ -12,6 +12,7 @@ import {
 } from './hourly-nav-functionality';
 import { clearErrorMsj } from './handle-wrong-location';
 
+
 let location;
 populateTopLeftSection();
 populateTopRightSection();
