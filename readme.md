@@ -1,6 +1,6 @@
 # weather-app
 
-Live at: 
+Live at: https://trustinmagic.github.io/weather-app/
 
 Live app created with HTML, CSS and JS. Bundled together with webpack. 
 
