@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../src/style.css" />
+    <link rel="icon" href="./assets/icon.svg">
     <link
       href="https://fonts.googleapis.com/css?family=Nova Flat"
       rel="stylesheet"
@@ -18,15 +19,14 @@
         <div class="main-info">
           <h1 class="condition"></h1>
           <div class="location"></div>
-          <div class="date"></div>
-          <div class="hour"></div>
+          <div class="time-date">
+            <div class="date"></div>
+            <div class="hour"></div>
+          </div>
         </div>
         <h1>
           <span class="main-temp"></span> <span class="temp-unit">°C</span>
         </h1>
-        <div class="display-temp-unit">
-          Display <span class="reverse-temp-unit">°F</span>
-        </div>
         <img src="" class="condition-icon" />
         <div class="search-box">
           <input type="text" placeholder="Search Location..." />
@@ -35,28 +35,41 @@
             src="./assets/magnifying-glass.png"
             alt=""
           />
+          <div class="input-error"></div>
         </div>
       </div>
       <div class="top-right">
         <div class="right-indicator feels-like">
           <img src="./assets/temperature-feels-like.svg" class="right-icon" />
           <span>Feels Like</span>
-          <span class="right-stat"></span> <span class="temp-unit">°C</span>
+          <div class="right-data">
+            <span class="right-stat"></span>
+            <div class="temp-unit">°C</div>
+          </div>
         </div>
         <div class="right-indicator humidity">
           <img src="./assets/humidity.svg" class="right-icon" />
           <span>Humidity</span>
-          <span class="right-stat"></span> <span>%</span>
+          <div class="right-data">
+            <span class="right-stat"></span>
+            <div>%</div>
+          </div>
         </div>
         <div class="right-indicator chance-of-rain">
           <img src="./assets/chance-of-rain.svg" class="right-icon" />
           <span>Chance of Rain</span>
-          <span class="right-stat"></span> <span>%</span>
+          <div class="right-data">
+            <span class="right-stat"></span>
+            <div>%</div>
+          </div>
         </div>
         <div class="right-indicator wind-speed">
           <img src="./assets/wind-speed.svg" class="right-icon" />
           <span>Wind Speed</span>
-          <span class="right-stat"></span> <span class="length-unit">km/h</span>
+          <div class="right-data">
+            <span class="right-stat"></span>
+            <div class="length-unit">km/h</div>
+          </div>
         </div>
       </div>
     </div>

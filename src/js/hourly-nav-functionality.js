@@ -7,23 +7,11 @@ export function displayNextHourlySection() {
   });
 
   if (sections[0].getAttribute('data-visible') === 'on') {
-    sections[1].setAttribute('data-visible', 'on');
-    sections[1].style.cssText = 'display: flex';
-    dots[1].style.cssText = 'background: white';
-    sections[0].removeAttribute('data-visible');
-    sections[0].style.cssText = 'display: none';
+    toggleActiveSection(1, 0);
   } else if (sections[1].getAttribute('data-visible') === 'on') {
-    sections[2].setAttribute('data-visible', 'on');
-    sections[2].style.cssText = 'display: flex';
-    dots[2].style.cssText = 'background: white';
-    sections[1].removeAttribute('data-visible');
-    sections[1].style.cssText = 'display: none';
+    toggleActiveSection(2, 1)
   } else if (sections[2].getAttribute('data-visible') === 'on') {
-    sections[0].setAttribute('data-visible', 'on');
-    sections[0].style.cssText = 'display: flex';
-    dots[0].style.cssText = 'background: white';
-    sections[2].removeAttribute('data-visible');
-    sections[2].style.cssText = 'display: none';
+    toggleActiveSection(0, 2)
   }
 }
 
@@ -36,24 +24,23 @@ export function displayPreviousHourlySection() {
   });
 
   if (sections[0].getAttribute('data-visible') === 'on') {
-    sections[2].setAttribute('data-visible', 'on');
-    sections[2].style.cssText = 'display: flex';
-    dots[2].style.cssText = 'background: white';
-    sections[0].removeAttribute('data-visible');
-    sections[0].style.cssText = 'display: none';
+    toggleActiveSection(2, 0)
   } else if (sections[1].getAttribute('data-visible') === 'on') {
-    sections[0].setAttribute('data-visible', 'on');
-    sections[0].style.cssText = 'display: flex';
-    dots[0].style.cssText = 'background: white';
-    sections[1].removeAttribute('data-visible');
-    sections[1].style.cssText = 'display: none';
+    toggleActiveSection(0, 1)
   } else if (sections[2].getAttribute('data-visible') === 'on') {
-    sections[1].setAttribute('data-visible', 'on');
-    sections[1].style.cssText = 'display: flex';
-    dots[1].style.cssText = 'background: white';
-    sections[2].removeAttribute('data-visible');
-    sections[2].style.cssText = 'display: none';
+    toggleActiveSection(1, 2)
   }
+}
+
+function toggleActiveSection(active, inactive) {
+  const sections = document.querySelectorAll('.hour-section');
+  const dots = document.querySelectorAll('.dot');
+
+  sections[active].setAttribute('data-visible', 'on');
+  sections[active].style.cssText = 'display: flex';
+  dots[active].style.cssText = 'background: white';
+  sections[inactive].removeAttribute('data-visible');
+  sections[inactive].style.cssText = 'display: none';
 }
 
 export function displaySection(number) {

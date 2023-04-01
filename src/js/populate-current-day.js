@@ -6,7 +6,7 @@ import {
 import moment from 'moment';
 
 
-export async function populateTopLeftSection(location = 'Bali') {
+export async function populateTopLeftSection(location = 'Bucharest') {
   const conditionEl = document.querySelector('.condition');
   const locationEl = document.querySelector('.location');
   const dateEl = document.querySelector('.date');
@@ -40,7 +40,7 @@ export async function populateTopLeftSection(location = 'Bali') {
   iconEl.src = iconSrc;
 }
 
-export async function populateTopRightSection(location = 'Bali') {
+export async function populateTopRightSection(location = 'Bucharest') {
   const feelsLikeEl = document.querySelector('.feels-like .right-stat');
   const humidityEl = document.querySelector('.humidity .right-stat');
   const chanceOfRainEl = document.querySelector('.chance-of-rain .right-stat');

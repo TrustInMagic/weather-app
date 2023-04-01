@@ -1,4 +1,5 @@
 import { getWeatherIcon } from './get-process-data';
+import moment from 'moment';
 
 function elementFromHtml(html) {
   const container = document.createElement('div');
@@ -8,7 +9,7 @@ function elementFromHtml(html) {
 
 async function createWeatherCard(data) {
   const weatherCard = elementFromHtml(`
-    <div class="weather-card">
+    <div class="weather-card weather-card-hourly">
       <div class="hour"></div>
       <div class="temp-container">
         <div class="max-temp-container">
@@ -23,9 +24,15 @@ async function createWeatherCard(data) {
   const tempEl = weatherCard.querySelector('.max-temp');
   const icon = weatherCard.querySelector('img');
   const iconSrc = await getWeatherIcon(data[1], data[2]);
+  const date = data[3];
+  const momentDate = moment(date, 'YYYY-MM-DD HH:mm');
+  const time = momentDate.format('h:mm a');
+  const temp = data[0];
 
-  hourEl.textContent = data[3];
-  tempEl.textContent = data[0];
+
+
+  hourEl.textContent = time;
+  tempEl.textContent = temp;
   icon.src = iconSrc;
 
   return weatherCard;

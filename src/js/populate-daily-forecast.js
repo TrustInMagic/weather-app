@@ -11,7 +11,7 @@ function elementFromHtml(html) {
   return container;
 }
 
-export async function populateDailyForecast(location = 'Bali') {
+export async function populateDailyForecast(location = 'Bucharest') {
   const response = await getWeatherFromLocation(location);
   const forecastDisplay = document.querySelector('.forecast-display');
 
@@ -51,7 +51,7 @@ export async function populateDailyForecast(location = 'Bali') {
           <div class="min-temp"></div><span class="temp-unit">°C</span>
         </div>
       </div>
-      <img src="">
+      <img class="daily-icon" src="">
     </div>
   `);
 

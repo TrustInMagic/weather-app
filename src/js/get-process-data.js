@@ -1,18 +1,29 @@
+import { handleWrongLocation } from "./handle-wrong-location";
+
 export async function getWeatherFromLocation(
   location,
   type = 'forecast',
   days = '8'
 ) {
+  let weatherData;
+
   try {
     const response = await fetch(
       `http://api.weatherapi.com/v1/${type}.json?key=b799deac1aed4f0b980145810232703&q=${location}&days=${days}`,
       { mode: 'cors' }
     );
-    const weatherData = await response.json();
-    return weatherData;
+    weatherData = await response.json();
+
+    if (weatherData.error || !weatherData.location || !response.ok) {
+      handleWrongLocation();
+      throw new Error()
+    }
   } catch (error) {
     console.log(`OOPS ${error}`);
+     throw error;
   }
+
+  return weatherData;
 }
 
 export async function processWeatherDataCurrentDay(data) {
@@ -54,7 +65,8 @@ export function processWeatherForecastSpecificDate(data, day) {
 
 export function processWeatherForecastHourly(data, day, hour) {
   const hourTempC = data.forecast.forecastday[day].hour[hour].temp_c;
-  const hourCondition = data.forecast.forecastday[day].hour[hour].condition.text;
+  const hourCondition =
+    data.forecast.forecastday[day].hour[hour].condition.text;
   const dateTime = data.location.localtime;
   const isDay = data.forecast.forecastday[day].hour[hour].is_day;
   const currentHour = data.forecast.forecastday[day].hour[hour].time;
@@ -76,7 +88,7 @@ export async function getWeatherIcon(condition, isDay) {
 
   for (let i = 0; i < awaitedData.length; i++) {
     if (condition === 'Clear' || condition === 'Sunny') {
-      iconCode = 113
+      iconCode = 113;
     } else if (awaitedData[i].day === condition) {
       iconCode = awaitedData[i].icon;
     }

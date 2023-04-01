@@ -4,7 +4,7 @@ import {
 } from './get-process-data';
 import moment from 'moment';
 
-export async function buildHourlyData(location = 'Bali') {
+export async function buildHourlyData(location = 'Bucharest') {
   const response = await getWeatherFromLocation(location);
   const forecastDisplay = document.querySelector('.forecast-display');
 

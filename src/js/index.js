@@ -8,13 +8,23 @@ import { populateHourlyForecast } from './populate-hourly-forecast';
 import {
   displayNextHourlySection,
   displayPreviousHourlySection,
-  displaySection
+  displaySection,
 } from './hourly-nav-functionality';
+import { clearErrorMsj } from './handle-wrong-location';
 
 let location;
 populateTopLeftSection();
 populateTopRightSection();
 populateDailyForecast();
+
+const dailyButton = document.querySelector('.daily-button');
+const hourlyButton = document.querySelector('.hourly-button');
+const forecastNav = document.querySelector('.forecast-nav');
+const arrowRight = document.querySelector('.arrow-right');
+const arrowLeft = document.querySelector('.arrow-left');
+const firstDot = document.querySelector('.first-dot');
+const secondDot = document.querySelector('.second-dot');
+const thirdDot = document.querySelector('.third-dot');
 
 (function getLocationFromInput() {
   const locationInput = document.querySelector('.top-left input');
@@ -26,6 +36,8 @@ populateDailyForecast();
       populateTopLeftSection(location);
       populateTopRightSection(location);
       populateDailyForecast(location);
+      toggleActiveButton('daily');
+      clearErrorMsj();
       locationInput.value = '';
     }
   });
@@ -35,30 +47,31 @@ populateDailyForecast();
     populateTopLeftSection(location);
     populateTopRightSection(location);
     populateDailyForecast(location);
+    toggleActiveButton('daily');
+    clearErrorMsj();
     locationInput.value = '';
   });
 })();
 
-const dailyButton = document.querySelector('.daily-button');
-const hourlyButton = document.querySelector('.hourly-button');
-const forecastNav = document.querySelector('.forecast-nav');
-const arrowRight = document.querySelector('.arrow-right');
-const arrowLeft = document.querySelector('.arrow-left');
-const firstDot = document.querySelector('.first-dot');
-const secondDot = document.querySelector('.second-dot');
-const thirdDot = document.querySelector('.third-dot');
+function toggleActiveButton(button) {
+  if (button === 'daily') {
+    dailyButton.classList.add('active-button');
+    hourlyButton.classList.remove('active-button');
+    forecastNav.style.cssText = 'display: none';
+  } else {
+    hourlyButton.classList.add('active-button');
+    dailyButton.classList.remove('active-button');
+    forecastNav.style.cssText = 'display: flex';
+  }
+}
 
 dailyButton.addEventListener('click', () => {
-  dailyButton.classList.add('active-button');
-  hourlyButton.classList.remove('active-button');
-  forecastNav.style.cssText = 'display: none';
+  toggleActiveButton('daily');
   populateDailyForecast(location);
 });
 
 hourlyButton.addEventListener('click', async () => {
-  hourlyButton.classList.add('active-button');
-  dailyButton.classList.remove('active-button');
-  forecastNav.style.cssText = 'display: flex';
+  toggleActiveButton('hourly');
   const hourlyWeatherData = await buildHourlyData(location);
   populateHourlyForecast(...hourlyWeatherData);
 });
